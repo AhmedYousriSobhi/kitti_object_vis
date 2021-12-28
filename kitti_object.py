@@ -10,7 +10,7 @@ import sys
 import numpy as np
 import cv2
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))#+"kitti_object_vis")
 ROOT_DIR = os.path.dirname(BASE_DIR)
 sys.path.append(os.path.join(ROOT_DIR, "mayavi"))
 import kitti_util as utils
@@ -33,7 +33,7 @@ class kitti_object(object):
         self.split = split
         print(root_dir, split)
         self.split_dir = os.path.join(root_dir, split)
-
+	
         if split == "training":
             self.num_samples = 7481
         elif split == "testing":
@@ -79,7 +79,7 @@ class kitti_object(object):
         return utils.Calibration(calib_filename)
 
     def get_label_objects(self, idx):
-        assert idx < self.num_samples and self.split == "training"
+        assert idx < self.num_samples and self.split == "testing"
         label_filename = os.path.join(self.label_dir, "%06d.txt" % (idx))
         return utils.read_label(label_filename)
 
@@ -916,7 +916,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--split",
         type=str,
-        default="training",
+        default="testing",
         help="use training split or testing split (default: training)",
     )
     parser.add_argument(
